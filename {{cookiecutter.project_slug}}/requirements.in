@@ -1,0 +1,6 @@
+aiohttp
+sonic182_json_validator
+cchardet
+motor
+python-dotenv
+uvloop

@@ -1,0 +1,12 @@
+
+env/
+.env
+**/__pycache__/**
+**/*.egg-info
+dist/
+.cache
+.eggs
+build/
+.coverage
+logs/*.log
+htmlcov/
