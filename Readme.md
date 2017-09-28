@@ -1,7 +1,7 @@
 
 # AiohttpWork
 
-My cookiecutter to start new aiohttp projects. Project structure very simmilar to Ruby on Rails framework.
+My cookiecutter to start new [aiohttp](https://github.com/aio-libs/aiohttp) projects. Project structure very simmilar to Ruby on Rails framework.
 
 # Features
 
