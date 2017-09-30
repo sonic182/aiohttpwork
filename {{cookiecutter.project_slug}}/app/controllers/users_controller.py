@@ -3,6 +3,8 @@
 Minimal endpoint for users.
 """
 
+from json import dumps
+
 from app.decorators.json import JsonValidate
 from app.controllers.base import Controller
 from app.models.user import User
@@ -19,25 +21,17 @@ class UserController(Controller):
 
     async def index(self, req):
         """Index test route."""
-        req.logger.info('mongo_request', data={
-            'type': 'find',
-            'query': {}
-        })
+        req.logger.info('%s: Request por hacer a mongo' % req.uuid)
         data = await User(req.app).find({}).to_list(None)
         data = User.serialize(data)
-        req.logger.info('mongo_response', data={'response': data})
+        req.logger.info('%s: Respuesta mongo: %s' % (req.uuid, dumps(data)))
         return self.json_response(data)
 
     @JsonValidate(CONSTRAIN)
     async def create(self, req):
         """Do test route."""
         data = req.payload
-        req.logger.info('mongo_request', data={
-            'type': 'insert',
-            'data': data,
-        })
         user = await User(req.app).insert_one(data)
         data['_id'] = str(user.inserted_id)
-        req.logger.info('mongo_response', data=data)
         await self.write(req, self.json_response(data))
         print('can continue doing stuff...')

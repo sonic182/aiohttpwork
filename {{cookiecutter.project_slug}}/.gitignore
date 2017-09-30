@@ -3,10 +3,12 @@ env/
 .env
 **/__pycache__/**
 **/*.egg-info
+*.pyc
 dist/
 .cache
 .eggs
 build/
 .coverage
-logs/*.log
+*.log
 htmlcov/
+.tox/

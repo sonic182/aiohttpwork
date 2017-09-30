@@ -1,63 +1,7 @@
 """Custom logger module."""
 import logging
-import collections
 
 from app.config.settings import basepath
-
-
-class MyLoggerAdapter(logging.LoggerAdapter):
-    """Handle extra params for logging message."""
-
-    def __init__(self, logger, *args):
-        """Overrides."""
-        if isinstance(args[0], dict):
-            self.app = args[0].get('app', None)
-            self.request = args[0].get('request', None)
-        super(MyLoggerAdapter, self).__init__(logger, *args)
-
-    def process(self, msg, kwargs):
-        """Proccess message."""
-        data, kwargs = self.setup_kwargs_data(msg, kwargs)
-        return super(MyLoggerAdapter, self).process(
-            self._parse_data(data), kwargs)
-
-    def setup_kwargs_data(self, msg, kwargs=None):
-        """Configure data to be logged."""
-        data = kwargs.get('data', {})
-        if data:
-            del kwargs['data']  # param not accepted by process super.
-        kwargs['extra'] = kwargs.get('extra', {})
-
-        if self.request is not None:
-            try:
-                kwargs['extra']['uuid'] = self.request.uuid
-            except AttributeError:
-                kwargs['extra']['uuid'] = ''
-        else:
-            kwargs['extra']['uuid'] = ''
-        kwargs['extra']['type'] = msg
-
-        return collections.OrderedDict(sorted(data.items())), kwargs
-
-    @staticmethod
-    def _parse_data(extra, key=''):
-        """Append data params recursively.
-
-        TODO: change to secuential implementation.
-        """
-        res = ''
-        if isinstance(extra, dict):
-            for _key in extra:
-                temp_key = '{}{}{}'.format(key, ('.' if key else ''), _key)
-                res += MyLoggerAdapter._parse_data(extra[_key], temp_key)
-
-        elif isinstance(extra, list):
-            for ind, item in enumerate(extra):
-                temp_key = '{}{}{}'.format(key, ('.' if key else ''), ind)
-                res += MyLoggerAdapter._parse_data(item, temp_key)
-        else:
-            return res + '{}={}; '.format(key, extra)
-        return res
 
 
 class MyFilter(logging.Filter):
@@ -121,4 +65,4 @@ def get_logger(name='aiohttp_sample', logpath=basepath('logs', 'my.log'),
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
 
-    return MyLoggerAdapter(logger, {})
+    return logger
