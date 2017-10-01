@@ -45,10 +45,9 @@ def main():
         middlewares=MIDDLEWARES
     )
     app_config(app)
-    app.logger.info('starting_app', extra={
-        'port': args.port,
-        'env': environ.get('APP_ENV', 'develop')
-    })
+    app.logger.info('MODE=%s; Starting app on port %i' % (environ.get(
+        'APP_ENV', 'develop'), args.port))
+
     web.run_app(
         app,
         port=args.port,
