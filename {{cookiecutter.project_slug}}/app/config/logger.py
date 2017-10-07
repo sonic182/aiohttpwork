@@ -25,15 +25,13 @@ class MyFilter(logging.Filter):
 
 def get_logger(name='aiohttp_sample', logpath=basepath('logs', 'my.log'),
                info_log=None, error_log=None, loglevel=logging.DEBUG,
-               debug=False):
+               log_format=None, debug=False):
     """Get logger instance."""
     logger = logging.getLogger(name)
     logger.setLevel(loglevel)
 
-    formatter = logging.Formatter(
-        '%(asctime)s; LEVEL=%(levelname)s; uuid=%(uuid)s; type=%(type)s; '
-        '%(message)s'
-    )
+    fmt = log_format or '%(asctime)s; LEVEL=%(levelname)s; %(message)s'
+    formatter = logging.Formatter(fmt)
 
     if info_log is None and error_log is None:
         file_handler = logging.FileHandler(logpath)
