@@ -14,8 +14,8 @@ from app.middlewares import MIDDLEWARES
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 
-def main():
-    """Start app."""
+def parse_args():
+    """Parse cli args."""
     parser = argparse.ArgumentParser(description='Run application.')
 
     parser.add_argument(
@@ -31,8 +31,12 @@ def main():
         action='store_true',
     )
 
-    args = parser.parse_args()
+    return parse_args()
 
+
+def main():
+    """Start app."""
+    args = parse_args()
     logger = get_logger(
         debug=args.debug,
         info_log=basepath('logs', 'info.log'),

@@ -2,5 +2,8 @@
     "project_name": "Project Name",
     "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
     "project_description": "Project description",
+    "author": "Johanderson Mogollon",
+    "author_email": "johander1822@gmail.com",
+    "license": "MIT",
     "project_repo": "sonic182/{{cookiecutter.project_slug}}"
 }
