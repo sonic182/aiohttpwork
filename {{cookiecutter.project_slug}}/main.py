@@ -31,7 +31,7 @@ def parse_args():
         action='store_true',
     )
 
-    return parse_args()
+    return parser.parse_args()
 
 
 def main():
