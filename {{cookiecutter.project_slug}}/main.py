@@ -2,7 +2,6 @@
 from os import environ
 
 import argparse
-import asyncio
 import uvloop
 from aiohttp import web
 
@@ -11,7 +10,7 @@ from app.config.logger import get_logger
 from app.config.application import app_config
 from app.middlewares import MIDDLEWARES
 
-asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+uvloop.install()
 
 
 def parse_args():

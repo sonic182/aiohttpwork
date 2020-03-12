@@ -1,10 +1,9 @@
 pylint
 pytest
-pytest-cov
-pytest-sugar
 pytest-aiohttp
+pytest-sugar
+pytest-cov
 autopep8
 flake8
 flake8-docstrings
-neovim
 coveralls
